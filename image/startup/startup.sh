@@ -14,9 +14,12 @@ if [ -n "$VNC_PASSWORD" ]; then
     export VNC_PASSWORD=
 fi
 
-
 if [ -n "$VNC_SCREEN" ]; then
     find /etc/supervisor/conf.d/supervisord.conf -type f -exec sed -i -e "s/^command\=\/usr\/bin\/Xvfb.*$/command\=\/usr\/bin\/Xvfb :1 -screen 0 $VNC_SCREEN/" {} \;
+fi
+
+if [ ! -f "$HOME/.ssh/id_rsa" ]; then
+    ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
 fi
 
 cd /usr/lib/web && ./run.py > /var/log/web.log 2>&1 &
