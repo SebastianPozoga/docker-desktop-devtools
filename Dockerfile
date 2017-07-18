@@ -31,23 +31,55 @@ RUN apt-get update \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-
 # tini for subreap
 ENV TINI_VERSION v0.9.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
 RUN chmod +x /bin/tini
 
-ADD image /root/image
-RUN find /root/image -type f -exec sed -i -e 's/\r//' {} \;
-RUN cp -r /root/image/* / && rm -rf /root/image
-RUN pip install setuptools wheel && pip install -r /usr/lib/web/requirements.txt
-
 # add repositories
 RUN add-apt-repository ppa:webupd8team/atom \
   && apt-get update
 
+# system dependencies
+RUN apt-get install -y wget curl git build-essential
+
+# golang
+RUN wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go1.8.linux-amd64.tar.gz
+
+ENV GOROOT="/usr/local/go"
+ENV GOPATH="/root/go"
+ENV PATH="${PATH}:$GOROOT/bin:$GOPATH/bin"
+
+# golang - popular packages
+RUN go get github.com/gorilla/mux \
+  && go get github.com/jmoiron/sqlx \
+  && go get github.com/goatcms/goatcore \
+  && go get github.com/mattn/go-sqlite3 \
+  && go install github.com/mattn/go-sqlite3 \
+  && go get github.com/lib/pq \
+  && go install github.com/lib/pq \
+  && go get golang.org/x/crypto/bcrypt \
+  && go get github.com/buger/jsonparser
+
+# golang - atom packages
+RUN go get -u golang.org/x/tools/cmd/goimports \
+  && go get -u golang.org/x/tools/cmd/gorename \
+  && go get -u github.com/sqs/goreturns \
+  && go get -u github.com/nsf/gocode \
+  && go get -u github.com/alecthomas/gometalinter \
+  && go get -u github.com/zmb3/gogetdoc \
+  && go get -u github.com/rogpeppe/godef \
+  && go get -u golang.org/x/tools/cmd/guru
+
 # atom
-RUN apt-get install -y atom
+RUN apt-get install -y atom \
+  && apm install file-icons \
+  && apm install go-debug \
+  && apm install go-plus \
+  && apm install language-docker \
+  && apm install atom-beautify \
+  && apm install git-plus
 
 # git
 RUN apt-get install -y git
@@ -84,9 +116,17 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # mysql
 RUN apt-get install -y mysql-client mysql-server
 
+# load configs
+ADD image /root/image
+RUN find /root/image -type f -regextype posix-extended -iregex '^.*\/((\.[A-Za-z0-9_\-\.]+)|([A-Za-z0-9_\-])|([A-Za-z0-9_\-]+[A-Za-z0-9_\-\.]\.(js|html|po|css|sh|conf|md|txt|json|py)))$' -exec sed -i -e 's/\r//' {} \;
+RUN cp -r /root/image/* / && rm -rf /root/image
+
+# vnc & novnc dependencies
+RUN pip install setuptools wheel && pip install -r /usr/lib/web/requirements.txt
+
 EXPOSE 80 81
 WORKDIR /root
 ENV HOME=/home/ubuntu \
     SHELL=/bin/bash
 
-ENTRYPOINT ["/bin/bash", "/startup.sh"]
+ENTRYPOINT ["/bin/bash", "/startup/startup.sh"]
