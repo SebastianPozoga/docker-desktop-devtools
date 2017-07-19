@@ -19,7 +19,7 @@ if [ -n "$VNC_SCREEN" ]; then
 fi
 
 if [ ! -f "$HOME/.ssh/id_rsa" ]; then
-    ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
+    ssh-keygen -f "$HOME/.ssh/id_rsa" -t rsa -N ''
 fi
 
 cd /usr/lib/web && ./run.py > /var/log/web.log 2>&1 &
