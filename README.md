@@ -12,7 +12,7 @@ Recomended way to run devtools:
 
 ## VNC client
 Recomended open source client is [TigerVNC](http://tigervnc.org/). Make Windows and Linux working together.
-<img src="https://raw.github.com/SebastianPozoga/docker-desktop-devtools/screenshots/desktop.jpg" width=600/>
+![Windows and linux on one laptop](https://raw.github.com/SebastianPozoga/docker-desktop-devtools/master/screenshots/desktop.jpg)
 
 ## Help
 * [Port list](image/root/Desktop/DevToolsHelp/ports.md)
