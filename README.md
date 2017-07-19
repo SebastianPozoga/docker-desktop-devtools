@@ -8,7 +8,7 @@ It is based on [docker-ubuntu-vnc-desktop](https://github.com/fcwu/docker-ubuntu
 
 ## Run devtools
 Recomended way to run devtools:
-`docker run -it --rm -p 6080:81 -p 5900:5900 -e VNC_SCREEN=1600x900x24 -e VNC_PASSWORD=pass123 -v myhome:/root -v myapache2:/etc/apache2 devtools`
+`docker run -it --rm -p 5900:5900 -e VNC_SCREEN=1600x900x24 -e VNC_PASSWORD=pass123 -v myhome:/root -v mywww:/var/www -v myapache2:/etc/apache2 devtools`
 
 ## VNC client
 Recomended open source client is [TigerVNC](http://tigervnc.org/). Make Windows and Linux working together.
