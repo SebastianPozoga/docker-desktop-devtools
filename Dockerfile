@@ -116,6 +116,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # mysql
 RUN apt-get install -y mysql-client mysql-server
 
+# console tools
+RUN apt-get install -y vim
+
 # load configs
 ADD image /root/image
 RUN find /root/image -type f -regextype posix-extended -iregex '^.*\/((\.[A-Za-z0-9_\-\.]+)|([A-Za-z0-9_\-])|([A-Za-z0-9_\-]+[A-Za-z0-9_\-\.]\.(js|html|po|css|sh|conf|md|txt|json|py)))$' -exec sed -i -e 's/\r//' {} \;
