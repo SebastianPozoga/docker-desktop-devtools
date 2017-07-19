@@ -15,7 +15,7 @@ Recomended open source client is [TigerVNC](http://tigervnc.org/). Make Windows 
 <img src="https://raw.github.com/SebastianPozoga/docker-desktop-devtools/screenshots/desktop.jpg" width=600/>
 
 ## Help
-- [Port list](image/root/Desktop/DevToolsHelp/ports.md)
+* [Port list](image/root/Desktop/DevToolsHelp/ports.md)
 
 ## Docker image
 Use official docker hub to pull pre-build image:
