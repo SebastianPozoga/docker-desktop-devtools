@@ -117,7 +117,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 RUN apt-get install -y mysql-client mysql-server
 
 # console tools
-RUN apt-get install -y vim
+RUN apt-get install -y vim iputils-ping
+
+# remote access tools
+RUN apt-get install -y curlftpfs sshfs cifs-utils
 
 # load configs
 ADD image /root/image
