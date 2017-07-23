@@ -132,7 +132,7 @@ RUN pip install setuptools wheel && pip install -r /usr/lib/web/requirements.txt
 
 EXPOSE 80 81
 WORKDIR /root
-ENV HOME=/home/ubuntu \
+ENV HOME=/root \
     SHELL=/bin/bash
 
 ENTRYPOINT ["/bin/bash", "/startup/startup.sh"]
