@@ -16,7 +16,7 @@ docker run -it --rm -p 5900:5900 -e VNC_SCREEN=1600x900x24 -e VNC_PASSWORD=pass1
 Recomended open source client is [TigerVNC](http://tigervnc.org/). Make Windows and Linux working together.
 ![Windows and linux on one laptop](https://raw.github.com/SebastianPozoga/docker-desktop-devtools/master/screenshots/desktop.jpg)
 
-## Add share (via SMB) directory
+## Add shared directory (via SMB)
 You must run docker container with extra parameteris like:
 ```
 docker run ... \
