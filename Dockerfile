@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:17.10
 MAINTAINER Sebastian Pożoga <sebastian@pozoga.eu>
 # forked from fcwu/docker-ubuntu-vnc-desktop (Doro Wu <fcwu.tw@gmail.com>)
 
@@ -9,9 +9,6 @@ RUN sed -i 's#http://archive.ubuntu.com/#http://tw.archive.ubuntu.com/#' /etc/ap
 # built-in packages
 RUN apt-get update \
     && apt-get install -y --no-install-recommends software-properties-common curl \
-    && sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list" \
-    && curl -SL http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key | apt-key add - \
-    && add-apt-repository ppa:fcwu-tw/ppa \
     && apt-get update \
     && apt-get install -y --no-install-recommends --allow-unauthenticated \
         supervisor \
@@ -103,9 +100,10 @@ RUN gem install sass
 
 # apache2
 RUN apt-get install -y apache2
+RUN a2enmod rewrite
 
 # php
-RUN apt-get install -y php7.0 php7.0-cli php7.0-mysql php7.0-dev libapache2-mod-php7.0 php7.0-mcrypt php7.0-curl php7.0-sqlite php-pear php-imagick php-xdebug
+RUN apt-get install -y php php-cli php-mysql php-dev libapache2-mod-php php-mcrypt php-curl php-sqlite3 php-pear php-imagick php-xdebug
 
 # php - composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

@@ -9,7 +9,7 @@ It is based on [docker-ubuntu-vnc-desktop](https://github.com/fcwu/docker-ubuntu
 ## Run devtools
 Recomended way to run devtools:
 ```bash
-docker run -it --rm -p 5900:5900 -p 80:80 -p 6081:6081 -e VNC_SCREEN=1600x900x24 -e VNC_PASSWORD=pass123 --cap-add SYS_ADMIN --cap-add DAC_READ_SEARCH -v myhome:/root -v mywww:/var/www -v myapache2:/etc/apache2 spozoga/devtools
+docker run -it --rm -p 5900:5900 -p 80:80 -p 6081:6081 -e VNC_SCREEN=1600x900x24 -e VNC_PASSWORD=pass123 --cap-add SYS_ADMIN --cap-add DAC_READ_SEARCH -v myhome:/root -v mywww:/var/www spozoga/devtools
 ```
 
 ## VNC client
